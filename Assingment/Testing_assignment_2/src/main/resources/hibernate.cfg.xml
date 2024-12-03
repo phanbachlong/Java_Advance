@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+
+    <!-- Cấu hình kết nối cơ sở dữ liệu -->
+    <session-factory>
+
+        <!-- Định nghĩa driver cơ sở dữ liệu -->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/TestingSystem</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">210198</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+
+        <!-- format code SQL -->
+		<property name="show_sql">true</property>
+		<property name="hibernate.format_sql">true</property>
+		<property name="connection.pool_size">10</property>
+
+		<!-- other -->
+		<property name="hibernate.connection.CharSet">utf8</property>
+        <property name="hibernate.connection.useUnicode">true</property>
+
+
+    </session-factory>
+</hibernate-configuration>
