@@ -11,6 +11,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "`GroupAccount`")
@@ -28,6 +30,7 @@ public class GroupAccount implements Serializable {
     private short accountID;
 
     @Column(name = "JoinDate")
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime joinDate = LocalDateTime.now();
 
     @ManyToOne
