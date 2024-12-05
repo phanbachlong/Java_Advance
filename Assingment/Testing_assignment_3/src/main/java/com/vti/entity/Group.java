@@ -13,6 +13,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "`Group`")
@@ -32,7 +34,8 @@ public class Group implements Serializable {
     @JoinColumn(name = "CreatorID", referencedColumnName = "AccountID")
     private Account creator;
 
-    @Column(name = "CreateDate")
+    @Column(name = "CreateDate", updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime createDate = LocalDateTime.now();
 
     @OneToMany(mappedBy = "group")

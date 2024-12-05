@@ -16,6 +16,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "`Account`")
@@ -56,6 +58,7 @@ public class Account implements Serializable {
     private Salary salary;
 
     @Column(name = "CreateDate", updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime createDate = LocalDateTime.now();
 
     @OneToOne(mappedBy = "account")
@@ -69,6 +72,12 @@ public class Account implements Serializable {
 
     @OneToMany(mappedBy = "account")
     private List<GroupAccount> groupAccounts;
+
+    @OneToMany(mappedBy = "creator")
+    private List<Question> questions;
+
+    @OneToMany(mappedBy = "creator")
+    private List<Exam> exams;
 
     public Account() {
     }
