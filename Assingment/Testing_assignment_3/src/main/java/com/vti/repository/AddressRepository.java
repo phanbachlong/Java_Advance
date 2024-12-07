@@ -35,7 +35,26 @@ public class AddressRepository {
         }
     }
 
-    @SuppressWarnings("deprecation")
+    public Address getAddressByID(short addressID) {
+        Session session = null;
+        try {
+            session = hibernateUtils.openSession();
+
+            Query<Address> query = session.createQuery("FROM Address WHERE addressID = :addressIDParam", Address.class);
+
+            query.setParameter("addressIDParam", addressID);
+
+            return query.uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (session != null && session.isConnected()) {
+                session.close();
+            }
+        }
+    }
+
     public void createAddress(Address address) {
         Session session = null;
         try {

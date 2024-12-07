@@ -25,7 +25,7 @@ public class DepartmentRepository {
             return query.list();
 
         } finally {
-            if (session != null) {
+            if (session != null && session.isOpen()) {
                 session.close();
             }
         }
@@ -46,7 +46,23 @@ public class DepartmentRepository {
             e.printStackTrace();
             return null;
         } finally {
-            if (session != null) {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+    }
+
+    public void createDepartment(Department department) {
+        Session session = null;
+        try {
+            session = hibernateUtils.openSession();
+            session.beginTransaction();
+            session.persist(department);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
                 session.close();
             }
         }

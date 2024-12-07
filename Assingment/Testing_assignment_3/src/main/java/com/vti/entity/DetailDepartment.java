@@ -32,15 +32,13 @@ public class DetailDepartment implements Serializable {
     @Column(name = "EmulationPoint")
     private short emulationPoint;
 
-    // @OneToOne
-    // @JoinColumn(name = "DepartmentID", referencedColumnName = "departmentID")
-    // private Department department;
-
-    // @OneToOne
-    // @JoinColumn(name = "AddressID", referencedColumnName = "addressID")
-    // private Address address;
-
     public DetailDepartment() {
+    }
+
+    public DetailDepartment(Department department, Address address, short emulationPoint) {
+        this.department = department;
+        this.address = address;
+        this.emulationPoint = emulationPoint;
     }
 
     public short getEmulationPoint() {

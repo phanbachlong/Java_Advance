@@ -31,4 +31,23 @@ public class DetailDepartmentRepository {
         }
     }
 
+    @SuppressWarnings("deprecation")
+    public void createDetailDepartment(DetailDepartment detailDepartment) {
+        Session session = null;
+        try {
+            session = hibernateUtils.openSession();
+            session.beginTransaction();
+
+            session.save(detailDepartment);
+
+            session.getTransaction().commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
 }
