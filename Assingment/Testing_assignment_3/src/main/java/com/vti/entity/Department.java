@@ -46,10 +46,6 @@ public class Department implements Serializable {
         this.departmentName = departmentName;
     }
 
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
-
     public short getDepartmentID() {
         return departmentID;
     }
