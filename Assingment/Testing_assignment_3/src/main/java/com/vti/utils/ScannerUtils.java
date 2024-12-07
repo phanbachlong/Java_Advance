@@ -2,7 +2,7 @@ package com.vti.utils;
 
 import java.util.Scanner;
 
-public class ScannerUtills {
+public class ScannerUtils {
 
     private static Scanner sc = new Scanner(System.in);
 

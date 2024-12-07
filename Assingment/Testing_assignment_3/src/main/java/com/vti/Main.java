@@ -5,11 +5,11 @@ import java.util.List;
 import com.vti.entity.*;
 
 import com.vti.repository.*;
-import com.vti.utils.ScannerUtills;
+import com.vti.utils.ScannerUtils;
 
 public class Main {
     public static void main(String[] args) {
-        addressCRUD();
+        detailDepartmentCRUD();
     }
 
     public static void addressCRUD() {
@@ -18,7 +18,7 @@ public class Main {
         while (true) {
             System.out.println("==========ADDRESS==========");
             System.out.println("1. Hien thi\n2. Them moi\n3. Cap nhat\n4. Xoa\n5. Khoi phuc\n0. Thoat");
-            int i = ScannerUtills.inputInt("Nhap vao 0 | 1 | 2 | 3 | 4 | 5 de chon chu nang tuon ung: ");
+            int i = ScannerUtils.inputInt("Nhap vao 0 | 1 | 2 | 3 | 4 | 5 de chon chuc nang tuon ung: ");
             switch (i) {
                 case 1:
                     // Get all address
@@ -45,11 +45,84 @@ public class Main {
                 default:
                     break;
             }
-            ScannerUtills.waiting();
+            ScannerUtils.waiting();
+        }
+
+    }
+
+    public static void departmentCRUD() {
+        DepartmentRepository departmentRepository = new DepartmentRepository();
+
+        while (true) {
+            System.out.println("==========DEPARTMENT==========");
+            System.out.println("1. Hien thi\n2. Them moi\n3. Cap nhat\n4. Xoa\n5. Khoi phuc\n0. Thoat");
+            int i = ScannerUtils.inputInt("Nhap vao 0 | 1 | 2 | 3 | 4 | 5 de chon chuc nang tuon ung: ");
+            switch (i) {
+                case 1:
+                    // Get all department
+                    List<Department> departments = departmentRepository.getAllDepartments();
+
+                    for (Department department : departments) {
+                        System.out.println(department);
+                    }
+                    break;
+                case 2:
+                    // Create address
+                    Department department = new Department("Waiting Room");
+                    departmentRepository.createDepartment(department);
+                    break;
+
+                case 3:
+                    // Update address
+                    break;
+
+                case 0:
+                    return;
+                default:
+                    break;
+            }
+            ScannerUtils.waiting();
         }
     }
 
-    public void departmentCRUD() {
+    public static void detailDepartmentCRUD() {
+        DetailDepartmentRepository detailDepartmentRepository = new DetailDepartmentRepository();
+        DepartmentRepository departmentRepository = new DepartmentRepository();
+        AddressRepository addressRepository = new AddressRepository();
+
+        while (true) {
+            System.out.println("==========DETAIL DEPARTMENT==========");
+            System.out.println("1. Hien thi\n2. Them moi\n3. Cap nhat\n4. Xoa\n5. Khoi phuc\n0. Thoat");
+            int i = ScannerUtils.inputInt("Nhap vao 0 | 1 | 2 | 3 | 4 | 5 de chon chuc nang tuon ung: ");
+            switch (i) {
+                case 1:
+                    // Get all detail department
+                    List<DetailDepartment> detailDepartments = detailDepartmentRepository.getAllDetailDepartments();
+                    for (DetailDepartment detailDepartment : detailDepartments) {
+                        System.out.println(detailDepartment);
+                    }
+                    break;
+                case 2:
+                    // Create detail department
+                    Address address = addressRepository.getAddressByID((short) 11);
+                    Department department = departmentRepository.getDepartmentByID((short) 11);
+
+                    System.out.println(address);
+                    DetailDepartment detailDepartment = new DetailDepartment(department, address, (short) 0);
+                    detailDepartmentRepository.createDetailDepartment(detailDepartment);
+                    break;
+
+                case 3:
+                    // Update address
+                    break;
+
+                case 0:
+                    return;
+                default:
+                    break;
+            }
+            ScannerUtils.waiting();
+        }
 
     }
 }

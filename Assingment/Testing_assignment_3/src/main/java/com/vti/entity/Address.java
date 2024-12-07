@@ -26,7 +26,7 @@ public class Address implements Serializable {
     @OneToOne(mappedBy = "address")
     private DetailDepartment detailDepartment;
 
-    private boolean deleted = false;
+    // private boolean deleted = false;
 
     public Address() {
     }
@@ -69,12 +69,12 @@ public class Address implements Serializable {
         return String.format("Address [addressID = %s, addressName = %s]", addressID, addressName);
     }
 
-    public boolean isDeleted() {
-        return deleted;
-    }
+    // public boolean isDeleted() {
+    // return deleted;
+    // }
 
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
-    }
+    // public void setDeleted(boolean deleted) {
+    // this.deleted = deleted;
+    // }
 
 }

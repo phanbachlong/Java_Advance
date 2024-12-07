@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 
 @Entity
@@ -26,10 +27,12 @@ public class ExamQuestion implements Serializable {
     private short questionID;
 
     @ManyToOne
+    @MapsId("examID")
     @JoinColumn(name = "ExamID", referencedColumnName = "ExamID")
     private Exam exam;
 
     @ManyToOne
+    @MapsId("questionID")
     @JoinColumn(name = "QuestionID", referencedColumnName = "QuestionID")
     private Question question;
 
