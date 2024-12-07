@@ -6,7 +6,6 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import com.vti.entity.Department;
-import com.vti.entity.DetailDepartment;
 import com.vti.utils.HibernateUtils;
 
 public class DepartmentRepository {
@@ -45,22 +44,6 @@ public class DepartmentRepository {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
-        } finally {
-            if (session != null && session.isOpen()) {
-                session.close();
-            }
-        }
-    }
-
-    public void createDepartment(Department department) {
-        Session session = null;
-        try {
-            session = hibernateUtils.openSession();
-            session.beginTransaction();
-            session.persist(department);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
         } finally {
             if (session != null && session.isOpen()) {
                 session.close();
