@@ -77,9 +77,13 @@ public class DetailDepartment implements Serializable {
 
     @Override
     public String toString() {
+
+        String isNullDepartment = department == null ? null : department.getDepartmentName();
+
+        String isNullAddress = address == null ? null : address.getAddressName();
         return String.format(
                 "DetailDepartment [departmentID = %s, department = %s, address = %s, emulationPoint = %s]",
-                departmentID, department.getDepartmentName(), address.getAddressName(), emulationPoint);
+                departmentID, isNullDepartment, isNullAddress, emulationPoint);
     }
 
 }

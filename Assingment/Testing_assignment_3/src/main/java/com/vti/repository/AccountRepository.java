@@ -51,4 +51,44 @@ public class AccountRepository {
             }
         }
     }
+
+    @SuppressWarnings("deprecation")
+    public void updateAccount(Account account) {
+        Session session = null;
+        try {
+            session = hibernateUtils.openSession();
+            session.beginTransaction();
+
+            session.update(account);
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    public void deleteAccount(short accountID) {
+        Session session = null;
+        try {
+            session = hibernateUtils.openSession();
+            session.beginTransaction();
+
+            Account account = session.load(Account.class, accountID);
+
+            session.delete(account);
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
 }

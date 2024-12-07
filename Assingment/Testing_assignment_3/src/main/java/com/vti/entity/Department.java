@@ -8,7 +8,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -25,6 +24,9 @@ public class Department implements Serializable {
 
     @Column(name = "DepartmentName", length = 30, nullable = false, unique = true)
     private String departmentName;
+
+    @Column(name = "Deleted")
+    private boolean deleted;
 
     @OneToOne(mappedBy = "department")
     private DetailDepartment detailDepartment;
@@ -83,6 +85,14 @@ public class Department implements Serializable {
     @Override
     public String toString() {
         return String.format("Department [departmentID = %s, departmentName = %s]", departmentID, departmentName);
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
 }

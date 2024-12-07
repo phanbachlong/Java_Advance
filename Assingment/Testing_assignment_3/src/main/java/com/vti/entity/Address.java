@@ -26,6 +26,7 @@ public class Address implements Serializable {
     @OneToOne(mappedBy = "address")
     private DetailDepartment detailDepartment;
 
+    @Column(name = "Deleted")
     private boolean deleted = false;
 
     public Address() {
