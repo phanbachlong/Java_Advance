@@ -8,7 +8,26 @@ import com.vti.utils.ScannerUtils;
 
 public class Main {
     public static void main(String[] args) {
-        addressCRUD();
+        while (true) {
+            System.out.println("1. Hien thi\n2. Them moi\n0. Thoat");
+            int i = ScannerUtils.inputInt("Nhap table tuon ung: ");
+            switch (i) {
+                case 1:
+                    addressCRUD();
+                    break;
+
+                case 2:
+                    departmentCRUD();
+                    break;
+
+                case 0:
+                    return;
+
+                default:
+                    break;
+            }
+        }
+
     }
 
     public static void addressCRUD() {
@@ -89,13 +108,13 @@ public class Main {
                 case 3:
                     // Update department
                     int departmentID = ScannerUtils.inputInt("Nhap vao ID cua department muon cap nhat: ");
-                    String departmentName = ScannerUtils.inpuString("Nhap vao Name cua department muon cap nhat: ");
+                    String departmentName = ScannerUtils.inputString("Nhap vao Name cua department muon cap nhat: ");
 
                     Department updDepartment = new Department((short) departmentID, departmentName);
                     boolean isDepartmentName = departmentRepository.getDepartmentForUpdate(updDepartment);
 
                     while (isDepartmentName) {
-                        departmentName = ScannerUtils.inpuString("Nhap lai Name cua department: ");
+                        departmentName = ScannerUtils.inputString("Nhap lai Name cua department: ");
                         updDepartment = new Department((short) departmentID, departmentName);
                         isDepartmentName = departmentRepository.getDepartmentForUpdate(updDepartment);
                     }
