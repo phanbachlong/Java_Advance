@@ -22,7 +22,7 @@ public class ScannerUtils {
         }
     }
 
-    public static String inpuString(String message) {
+    public static String inputString(String message) {
         while (true) {
             System.out.println(message);
             try {

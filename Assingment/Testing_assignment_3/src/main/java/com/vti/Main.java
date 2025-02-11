@@ -10,24 +10,24 @@ import com.vti.utils.ScannerUtils;
 
 public class Main {
     public static void main(String[] args) {
-        // EmployeeRepository employeeRepository = new EmployeeRepository();
-        // DepartmentRepository departmentRepository = new DepartmentRepository();
-        // PositionRepository positionRepository = new PositionRepository();
-        // SalaryRepository salaryRepository = new SalaryRepository();
+        while (true) {
+            System.out.println("1. Hien thi\n2. Them moi\n0. Thoat");
+            int i = ScannerUtils.inputInt("Nhap table tuon ung: ");
+            switch (i) {
+                case 1:
+                    addressCRUD();
+                    break;
 
-        // Department department = departmentRepository.getDepartmentByID((short) 1);
-        // Position position = positionRepository.getPositionByName(PositionName.DEV);
-        // Salary salary = salaryRepository.getSalaryByName(SalaryName.DEV);
+                case 2:
+                    departmentCRUD();
+                    break;
 
-        // Employee employee = new Employee("phanbachlong@gmail.com", "phblong", "Phan",
-        // "Long", department, position,
-        // salary, (short) 0);
-        // employeeRepository.createEmployee(employee);
+                case 0:
+                    return;
 
-        DepartmentRepository departmentRepository = new DepartmentRepository();
-        List<Department> departments = departmentRepository.getLisDepartments(2, 7);
-        for (Department department : departments) {
-            System.out.println(department);
+                default:
+                    break;
+            }
         }
 
     }
@@ -110,13 +110,13 @@ public class Main {
                 case 3:
                     // Update department
                     int departmentID = ScannerUtils.inputInt("Nhap vao ID cua department muon cap nhat: ");
-                    String departmentName = ScannerUtils.inpuString("Nhap vao Name cua department muon cap nhat: ");
+                    String departmentName = ScannerUtils.inputString("Nhap vao Name cua department muon cap nhat: ");
 
                     Department updDepartment = new Department((short) departmentID, departmentName);
                     boolean isDepartmentName = departmentRepository.getDepartmentForUpdate(updDepartment);
 
                     while (isDepartmentName) {
-                        departmentName = ScannerUtils.inpuString("Nhap lai Name cua department: ");
+                        departmentName = ScannerUtils.inputString("Nhap lai Name cua department: ");
                         updDepartment = new Department((short) departmentID, departmentName);
                         isDepartmentName = departmentRepository.getDepartmentForUpdate(updDepartment);
                     }
