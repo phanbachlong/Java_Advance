@@ -32,4 +32,20 @@ public class EmployeeRepository {
             }
         }
     }
+
+    public void createEmployee(Employee employee) {
+        Session session = null;
+        try {
+            session = hibernateUtils.openSession();
+            session.beginTransaction();
+            session.persist(employee);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
 }

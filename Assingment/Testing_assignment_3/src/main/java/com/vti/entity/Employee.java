@@ -1,51 +1,35 @@
 package com.vti.entity;
 
-import java.io.Serializable;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "`Employee`")
-public class Employee implements Serializable {
+@PrimaryKeyJoinColumn(name = "AccountID")
+public class Employee extends Account {
 
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @Column(name = "AccountID")
-    private short accountID;
 
     @Column(name = "WorkingNumberOfYear", nullable = false)
     private short workingNumberOfYear;
 
-    @OneToOne
-    @JoinColumn(name = "AccountID", referencedColumnName = "AccountID")
-    private Account account;
+    // @OneToOne
+    // @JoinColumn(name = "AccountID", referencedColumnName = "AccountID")
+    // private Account account;
 
     public Employee() {
     }
 
-    public Employee(short workingNumberOfYear, Account account) {
+    public Employee(short workingNumberOfYear) {
         this.workingNumberOfYear = workingNumberOfYear;
-        this.account = account;
     }
 
-    public Employee(short accountID, short workingNumberOfYear, Account account) {
-        this.accountID = accountID;
+    public Employee(String email, String userName, String firstName, String lastName, Department department,
+            Position position, Salary salary, short workingNumberOfYear) {
+        super(email, userName, firstName, lastName, department, position, salary);
         this.workingNumberOfYear = workingNumberOfYear;
-        this.account = account;
-    }
-
-    public short getAccountID() {
-        return accountID;
-    }
-
-    public void setAccountID(short accountID) {
-        this.accountID = accountID;
     }
 
     public short getWorkingNumberOfYear() {
@@ -56,18 +40,10 @@ public class Employee implements Serializable {
         this.workingNumberOfYear = workingNumberOfYear;
     }
 
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
     @Override
     public String toString() {
-        return String.format("Employee [accountID=%s, workingNumberOfYear=%s, account=%s]", accountID,
-                workingNumberOfYear, account.getFullName());
+        return String.format("Employee [name = %s, workingNumberOfYear = %s]", super.getFullName(),
+                workingNumberOfYear);
     }
 
 }

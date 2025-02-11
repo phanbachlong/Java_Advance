@@ -11,6 +11,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -21,6 +23,7 @@ import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "`Account`")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Account implements Serializable {
 
     private static final long serialVersionUID = 1l;
@@ -61,11 +64,11 @@ public class Account implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime createDate = LocalDateTime.now();
 
-    @OneToOne(mappedBy = "account")
-    private Manager manager;
+    // @OneToOne(mappedBy = "account")
+    // private Manager manager;
 
-    @OneToOne(mappedBy = "account")
-    private Employee employee;
+    // @OneToOne(mappedBy = "account")
+    // private Employee employee;
 
     @OneToMany(mappedBy = "creator")
     private List<Group> groups;

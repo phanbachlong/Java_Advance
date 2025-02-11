@@ -3,12 +3,33 @@ package com.vti;
 import java.util.List;
 
 import com.vti.entity.*;
+import com.vti.entity.Position.PositionName;
+import com.vti.entity.Salary.SalaryName;
 import com.vti.repository.*;
 import com.vti.utils.ScannerUtils;
 
 public class Main {
     public static void main(String[] args) {
-        addressCRUD();
+        // EmployeeRepository employeeRepository = new EmployeeRepository();
+        // DepartmentRepository departmentRepository = new DepartmentRepository();
+        // PositionRepository positionRepository = new PositionRepository();
+        // SalaryRepository salaryRepository = new SalaryRepository();
+
+        // Department department = departmentRepository.getDepartmentByID((short) 1);
+        // Position position = positionRepository.getPositionByName(PositionName.DEV);
+        // Salary salary = salaryRepository.getSalaryByName(SalaryName.DEV);
+
+        // Employee employee = new Employee("phanbachlong@gmail.com", "phblong", "Phan",
+        // "Long", department, position,
+        // salary, (short) 0);
+        // employeeRepository.createEmployee(employee);
+
+        DepartmentRepository departmentRepository = new DepartmentRepository();
+        List<Department> departments = departmentRepository.getLisDepartments(2, 7);
+        for (Department department : departments) {
+            System.out.println(department);
+        }
+
     }
 
     public static void addressCRUD() {

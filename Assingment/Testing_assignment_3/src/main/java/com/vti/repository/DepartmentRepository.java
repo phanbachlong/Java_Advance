@@ -193,4 +193,29 @@ public class DepartmentRepository {
             }
         }
     }
+
+    public List<Department> getLisDepartments(int page, int size) {
+        Session session = null;
+        try {
+            session = hibernateUtils.openSession();
+
+            Query<Department> query = session.createQuery(
+                    "SELECT d.departmentID, d.departmentName FROM Department d  ORDER BY d.departmentName",
+                    Department.class);
+            int offset = (page - 1) * size;
+            int limit = size;
+
+            query.setFirstResult(offset);
+            query.setMaxResults(limit);
+
+            return query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
 }

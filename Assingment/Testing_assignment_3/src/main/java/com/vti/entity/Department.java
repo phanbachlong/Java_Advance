@@ -41,7 +41,7 @@ public class Department implements Serializable {
         this.departmentName = departmentName;
     }
 
-    public Department(short departmentID, String departmentName) {
+    public Department(Short departmentID, String departmentName) {
         this.departmentID = departmentID;
         this.departmentName = departmentName;
     }

@@ -33,4 +33,20 @@ public class ManagerRepository {
             }
         }
     }
+
+    public void createManager(Manager manager) {
+        Session session = null;
+        try {
+            session = hibernateUtils.openSession();
+            session.beginTransaction();
+            session.persist(manager);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
 }
