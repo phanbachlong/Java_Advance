@@ -5,7 +5,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
 
 import com.vti.demo.entity.Account;
-import com.vti.demo.form.AccountFilterFrom;
+import com.vti.demo.form.Account.AccountFilterFrom;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;

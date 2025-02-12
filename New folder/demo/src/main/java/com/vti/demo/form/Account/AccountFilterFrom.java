@@ -1,4 +1,4 @@
-package com.vti.demo.form;
+package com.vti.demo.form.Account;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

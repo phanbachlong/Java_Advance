@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.vti.demo.config.CustomLocalDateTimeDeserializer;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -33,7 +36,8 @@ public class Department implements Serializable {
     private String type;
 
     @Column(name = "create_date")
-    private LocalDateTime createDate;
+    @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)
+    private LocalDateTime createDate = LocalDateTime.now();
 
     @OneToMany(mappedBy = "department")
     private List<Account> accounts;

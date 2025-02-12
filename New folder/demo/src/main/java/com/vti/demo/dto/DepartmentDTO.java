@@ -3,12 +3,14 @@ package com.vti.demo.dto;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @Data
-public class DepartmentDTO {
+@NoArgsConstructor
+public class DepartmentDTO extends RepresentationModel<DepartmentDTO> {
 
     private int departmentID;
     private String departmentName;

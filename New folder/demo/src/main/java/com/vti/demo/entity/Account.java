@@ -29,12 +29,18 @@ public class Account implements Serializable {
     @Column(name = "password", length = 800, nullable = false, unique = true)
     private String password;
 
+    @Column(name = "first_name", length = 50, nullable = false)
+    private String firstName;
+
+    @Column(name = "last_name", length = 50, nullable = false)
+    private String lastName;
+
     @Formula("CONCAT(first_name,' ',last_name)")
     private String fullName;
 
     @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private Role role = Role.EMPLOYEE;
 
     @ManyToOne
     @JoinColumn(name = "department_id", columnDefinition = "id")
