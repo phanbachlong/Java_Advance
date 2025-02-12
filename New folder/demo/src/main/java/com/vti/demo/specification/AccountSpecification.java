@@ -25,25 +25,10 @@ public class AccountSpecification {
         if (!StringUtils.isEmpty(search)) {
             search = search.trim();
 
-            CustomSpecification name = new CustomSpecification("userName", search);
-            CustomSpecification departmentName = new CustomSpecification("departmentName", search);
-            where = Specification.where(name).or(departmentName);
-        }
-        if (accountFilterFrom != null && accountFilterFrom.getMinID() != null) {
-            CustomSpecification minID = new CustomSpecification("minID", accountFilterFrom.getMinID());
-            if (where == null) {
-                where = minID;
-            } else {
-                where = where.and(minID);
-            }
-        }
-        if (accountFilterFrom != null && accountFilterFrom.getMaxID() != null) {
-            CustomSpecification maxID = new CustomSpecification("maxID", accountFilterFrom.getMaxID());
-            if (where == null) {
-                where = maxID;
-            } else {
-                where = where.and(maxID);
-            }
+            CustomSpecification userName = new CustomSpecification("userName", search);
+            CustomSpecification firstName = new CustomSpecification("firstName", search);
+            CustomSpecification lastName = new CustomSpecification("lastName", search);
+            where = Specification.where(userName).or(firstName).or(lastName);
         }
 
         return where;
@@ -65,16 +50,12 @@ class CustomSpecification implements Specification<Account> {
             return criteriaBuilder.like(root.get("userName"), "%" + value.toString() + "%");
         }
 
-        if (field.equalsIgnoreCase("departmentName")) {
-            return criteriaBuilder.like(root.get("department").get("departmentName"), "%" + value.toString() + "%");
+        if (field.equalsIgnoreCase("firstName")) {
+            return criteriaBuilder.like(root.get("firstName"), "%" + value.toString() + "%");
         }
 
-        if (field.equalsIgnoreCase("maxID")) {
-            return criteriaBuilder.lessThanOrEqualTo(root.get("accountID"), value.toString());
-        }
-
-        if (field.equalsIgnoreCase("minID")) {
-            return criteriaBuilder.greaterThanOrEqualTo(root.get("accountID"), value.toString());
+        if (field.equalsIgnoreCase("lastName")) {
+            return criteriaBuilder.like(root.get("lastName"), "%" + value.toString() + "%");
         }
 
         return null;

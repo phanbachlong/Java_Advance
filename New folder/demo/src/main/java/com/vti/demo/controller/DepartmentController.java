@@ -9,6 +9,8 @@ import com.vti.demo.form.Department.CreatingDepartmentForm;
 import com.vti.demo.form.Department.UpdatingDepartmentForm;
 import com.vti.demo.service.IDepartmentService;
 
+import jakarta.validation.Valid;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -56,8 +58,8 @@ public class DepartmentController {
     }
 
     @PostMapping()
-    public void createDepartment(@RequestBody CreatingDepartmentForm creatingDepartmentForm) {
-        departmentService.createDeaprtment(creatingDepartmentForm);
+    public void createDepartment(@RequestBody @Valid CreatingDepartmentForm creatingDepartmentForm) {
+        departmentService.createDepartment(creatingDepartmentForm);
     }
 
     @PutMapping("/{id}")

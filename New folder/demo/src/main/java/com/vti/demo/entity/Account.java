@@ -23,16 +23,16 @@ public class Account implements Serializable {
     @Column(name = "id")
     private int accountID;
 
-    @Column(name = "username", length = 50, nullable = false, unique = true)
+    @Column(name = "username", length = 50, nullable = false, unique = true, updatable = false)
     private String userName;
 
     @Column(name = "password", length = 800, nullable = false, unique = true)
-    private String password;
+    private String password = "123456";
 
-    @Column(name = "first_name", length = 50, nullable = false)
+    @Column(name = "first_name", length = 50, nullable = false, updatable = false)
     private String firstName;
 
-    @Column(name = "last_name", length = 50, nullable = false)
+    @Column(name = "last_name", length = 50, nullable = false, updatable = false)
     private String lastName;
 
     @Formula("CONCAT(first_name,' ',last_name)")

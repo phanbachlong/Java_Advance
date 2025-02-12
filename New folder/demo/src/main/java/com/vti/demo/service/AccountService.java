@@ -1,5 +1,7 @@
 package com.vti.demo.service;
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.modelmapper.TypeMap;
@@ -12,12 +14,15 @@ import org.springframework.stereotype.Service;
 import com.vti.demo.entity.Account;
 import com.vti.demo.form.Account.AccountFilterFrom;
 import com.vti.demo.form.Account.CreatingAccountForm;
+import com.vti.demo.form.Account.UpdatingAccountForm;
 import com.vti.demo.repository.IAccountRepository;
 import com.vti.demo.specification.AccountSpecification;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 
 @Service
+@Transactional
 public class AccountService implements IAccountService {
 
     @Autowired
@@ -58,5 +63,26 @@ public class AccountService implements IAccountService {
 
         Account account = modelMapper.map(creatingAccountForm, Account.class);
         accountRepository.save(account);
+    }
+
+    @Override
+    public void updateAccount(UpdatingAccountForm updatingAccountForm) {
+        Account account = modelMapper.map(updatingAccountForm, Account.class);
+        accountRepository.save(account);
+    }
+
+    @Override
+    public void deleteAccounts(List<Integer> accountIDs) {
+        accountRepository.deleteAllById(accountIDs);
+    }
+
+    @Override
+    public boolean isAccountExistsByUserName(String userName) {
+        return accountRepository.existsByUserName(userName);
+    }
+
+    @Override
+    public boolean isAccountExistsByID(int accountID) {
+        return accountRepository.existsById(accountID);
     }
 }

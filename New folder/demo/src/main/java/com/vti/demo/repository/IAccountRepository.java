@@ -7,4 +7,7 @@ import com.vti.demo.entity.Account;
 
 public interface IAccountRepository extends JpaRepository<Account, Integer>, JpaSpecificationExecutor<Account> {
 
+    boolean existsByUserName(String userName);
+
+    boolean existsByAccountID(int accountID);
 }

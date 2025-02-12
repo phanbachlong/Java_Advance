@@ -13,7 +13,7 @@ public interface IDepartmentService {
 
     Department findDepartmentByID(int departmentID);
 
-    void createDeaprtment(CreatingDepartmentForm creatingDepartmentForm);
+    void createDepartment(CreatingDepartmentForm creatingDepartmentForm);
 
     void updateDepartment(UpdatingDepartmentForm updatingDepartmentForm);
 }

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AccountFilterFrom {
 
-    private Integer maxID;
-
-    private Integer minID;
+    private String userName;
+    private String firstName;
+    private String lastName;
 }
