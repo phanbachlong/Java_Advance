@@ -32,7 +32,8 @@ public class AccountService implements IAccountService {
     private ModelMapper modelMapper;
 
     @Override
-    public Page<Account> getAllAccounts(Pageable pageable, String search, AccountFilterFrom accountFilterFrom) {
+    public Page<Account> getAllAccounts(Pageable pageable, String search,
+            AccountFilterFrom accountFilterFrom) {
         Specification<Account> where = AccountSpecification.buildWhere(search, accountFilterFrom);
         return accountRepository.findAll(where, pageable);
     }

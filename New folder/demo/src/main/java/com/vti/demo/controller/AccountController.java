@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vti.demo.dto.AccountDTO;
 import com.vti.demo.entity.Account;
+import com.vti.demo.entity.Role;
 import com.vti.demo.form.Account.AccountFilterFrom;
 import com.vti.demo.form.Account.CreatingAccountForm;
 import com.vti.demo.form.Account.UpdatingAccountForm;
@@ -40,7 +41,13 @@ public class AccountController {
 
     @GetMapping()
     public Page<AccountDTO> getAllAccounts(Pageable pageable,
-            @RequestParam(value = "search", required = false) String search, AccountFilterFrom accountFilterFrom) {
+            @RequestParam(value = "search", required = false) String search,
+            @RequestParam(value = "role", required = false) Role role,
+            AccountFilterFrom accountFilterFrom) {
+
+        System.out.println("Filter controller: " + role);
+
+        accountFilterFrom.setRole(role);
         Page<Account> pageAccounts = accountService.getAllAccounts(pageable, search, accountFilterFrom);
 
         Page<AccountDTO> pageAccountDTOs = pageAccounts
