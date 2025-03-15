@@ -26,18 +26,20 @@ public class AccountSpecification {
         if (!StringUtils.isEmpty(search)) {
             search = search.trim();
 
-            CustomSpecification userName = new CustomSpecification("userName", search);
-            CustomSpecification firstName = new CustomSpecification("firstName", search);
-            CustomSpecification lastName = new CustomSpecification("lastName", search);
+            AccountCustomSpecification userName = new AccountCustomSpecification("userName", search);
+            AccountCustomSpecification firstName = new AccountCustomSpecification("firstName", search);
+            AccountCustomSpecification lastName = new AccountCustomSpecification("lastName", search);
             where = Specification.where(userName).or(firstName).or(lastName);
         }
         if (accountFilterFrom != null && accountFilterFrom.getRole() != null) {
-            CustomSpecification role = new CustomSpecification("role",
+            AccountCustomSpecification role = new AccountCustomSpecification("role",
                     accountFilterFrom.getRole());
             where = (where == null) ? role : where.and(role);
-        } else {
-            System.out.println("filter speci: none");
-
+        }
+        if (accountFilterFrom != null && accountFilterFrom.getDepartmentName() != null) {
+            AccountCustomSpecification departmentName = new AccountCustomSpecification("departmentName",
+                    accountFilterFrom.getDepartmentName());
+            where = (where == null) ? departmentName : where.and(departmentName);
         }
 
         return where;
@@ -45,7 +47,7 @@ public class AccountSpecification {
 }
 
 @RequiredArgsConstructor
-class CustomSpecification implements Specification<Account> {
+class AccountCustomSpecification implements Specification<Account> {
 
     @NonNull
     private String field;
@@ -70,21 +72,20 @@ class CustomSpecification implements Specification<Account> {
 
         if (field.equalsIgnoreCase("role")) {
             if (value instanceof Role) {
-                System.out.println("✅ Role matched: " + value);
-
                 return criteriaBuilder.equal(root.get("role"), value);
             } else if (value instanceof String) {
                 try {
                     Role role = Role.valueOf(((String) value).toUpperCase());
-                    System.out.println("✅ Convert role matched: " + value);
-
                     return criteriaBuilder.equal(root.get("role"), role);
                 } catch (IllegalArgumentException e) {
-                    System.out.println(" Invalid: " + value);
 
                     return null;
                 }
             }
+        }
+
+        if (field.equalsIgnoreCase("departmentName")) {
+            return criteriaBuilder.equal(root.get("department").get("departmentName"), value.toString());
         }
 
         return null;

@@ -13,5 +13,5 @@ public class AccountFilterFrom {
     private String firstName;
     private String lastName;
     private Role role;
-    // private String departmentName;
+    private String departmentName;
 }

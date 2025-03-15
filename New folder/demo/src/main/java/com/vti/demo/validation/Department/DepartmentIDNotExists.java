@@ -1,4 +1,4 @@
-package com.vti.demo.validation.Account;
+package com.vti.demo.validation.Department;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -14,11 +14,10 @@ import jakarta.validation.Payload;
         ElementType.PARAMETER, ElementType.TYPE_USE })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Constraint(validatedBy = { AccountIDExistsValidator.class })
-@Repeatable(AccountIDExists.List.class)
-public @interface AccountIDExists {
-
-    String message() default "Account ID already exists!";
+@Constraint(validatedBy = { DepartmentIDNotExistsValidator.class })
+@Repeatable(DepartmentIDNotExists.List.class)
+public @interface DepartmentIDNotExists {
+    String message() default "Department ID not exists!";
 
     Class<?>[] groups() default {};
 
@@ -30,7 +29,6 @@ public @interface AccountIDExists {
     @Retention(RetentionPolicy.RUNTIME)
     @Documented
     @interface List {
-        AccountIDExists[] value();
+        DepartmentIDNotExists[] value();
     }
-
 }

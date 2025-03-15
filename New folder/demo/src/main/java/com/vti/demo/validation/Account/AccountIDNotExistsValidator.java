@@ -7,7 +7,7 @@ import com.vti.demo.service.IAccountService;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class AccountIDExistsValidator implements ConstraintValidator<AccountIDExists, Integer> {
+public class AccountIDNotExistsValidator implements ConstraintValidator<AccountIDNotExists, Integer> {
 
     @Autowired
     private IAccountService accountService;
@@ -17,7 +17,6 @@ public class AccountIDExistsValidator implements ConstraintValidator<AccountIDEx
         if (accountID == null) {
             return true;
         }
-
         return accountService.isAccountExistsByID(accountID);
     }
 

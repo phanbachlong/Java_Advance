@@ -1,9 +1,10 @@
 package com.vti.demo.form.Account;
 
+import com.vti.demo.validation.Department.DepartmentIDNotExists;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Positive;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,6 +19,8 @@ public class UpdatingAccountForm {
     @Pattern(regexp = "ADMIN|EMPLOYEE|MANAGER", message = "This role must be ADMIN, EMPLOYEE or MANAGER")
     private String role;
 
-    @Positive(message = "The department id must be great than 0")
+    private String password;
+
+    @DepartmentIDNotExists
     private int departmentID;
 }

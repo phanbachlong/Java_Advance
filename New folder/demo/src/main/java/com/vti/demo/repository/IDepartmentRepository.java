@@ -1,17 +1,14 @@
 package com.vti.demo.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import com.vti.demo.entity.Department;
 
-public interface IDepartmentRepository extends JpaRepository<Department, Integer> {
-
-    // Department findByDepartmentName(String departmentName);
-
-    @Query("SELECT d FROM Department d WHERE d.departmentName = 'Waitting Room'")
-    Department findWaittingRoomDepartment();
+public interface IDepartmentRepository
+        extends JpaRepository<Department, Integer>, JpaSpecificationExecutor<Department> {
 
     boolean existsByDepartmentName(String departmentName);
 
+    boolean existsByDepartmentID(int departmentID);
 }

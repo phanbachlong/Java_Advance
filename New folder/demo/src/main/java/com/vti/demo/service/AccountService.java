@@ -1,5 +1,6 @@
 package com.vti.demo.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -9,6 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.vti.demo.entity.Account;
@@ -30,6 +36,9 @@ public class AccountService implements IAccountService {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public Page<Account> getAllAccounts(Pageable pageable, String search,
@@ -61,13 +70,14 @@ public class AccountService implements IAccountService {
                 }
             });
         }
-
+        creatingAccountForm.setPassword(passwordEncoder.encode(creatingAccountForm.getPassword()));
         Account account = modelMapper.map(creatingAccountForm, Account.class);
         accountRepository.save(account);
     }
 
     @Override
     public void updateAccount(UpdatingAccountForm updatingAccountForm) {
+        // updatingAccountForm.setPassword(passwordEncoder.encode("123456"));
         Account account = modelMapper.map(updatingAccountForm, Account.class);
         accountRepository.save(account);
     }
@@ -85,5 +95,22 @@ public class AccountService implements IAccountService {
     @Override
     public boolean isAccountExistsByID(int accountID) {
         return accountRepository.existsById(accountID);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Account account = accountRepository.findAccountByUserName(username);
+
+        if (account == null) {
+            throw new UsernameNotFoundException(username);
+        }
+
+        return new User(account.getUserName(), account.getPassword(),
+                AuthorityUtils.createAuthorityList(account.getRole().toString()));
+    }
+
+    @Override
+    public Account getAccountByUserName(String userName) {
+        return accountRepository.findAccountByUserName(userName);
     }
 }

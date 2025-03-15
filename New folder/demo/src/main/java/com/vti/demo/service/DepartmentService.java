@@ -6,14 +6,18 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.vti.demo.entity.Account;
 import com.vti.demo.entity.Department;
 import com.vti.demo.form.Department.CreatingDepartmentForm;
+import com.vti.demo.form.Department.DepartmentFilterForm;
 import com.vti.demo.form.Department.UpdatingDepartmentForm;
 import com.vti.demo.repository.IAccountRepository;
 import com.vti.demo.repository.IDepartmentRepository;
+import com.vti.demo.specification.DepartmentSpecification;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -31,9 +35,14 @@ public class DepartmentService implements IDepartmentService {
     @Autowired
     private IAccountRepository accountRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
-    public Page<Department> getAllDepartments(Pageable pageable) {
-        return departmentRepository.findAll(pageable);
+    public Page<Department> getAllDepartments(Pageable pageable, String search,
+            DepartmentFilterForm departmentFilterForm) {
+        Specification<Department> where = DepartmentSpecification.buildWhere(search, departmentFilterForm);
+        return departmentRepository.findAll(where, pageable);
     }
 
     @Override
@@ -53,6 +62,7 @@ public class DepartmentService implements IDepartmentService {
 
         List<Account> accounts = departmentEntity.getAccounts();
         for (Account account : accounts) {
+            account.setPassword(passwordEncoder.encode(account.getPassword()));
             account.setDepartment(department);
         }
 
@@ -63,5 +73,20 @@ public class DepartmentService implements IDepartmentService {
     public void updateDepartment(UpdatingDepartmentForm updatingDepartmentForm) {
         Department department = modelMapper.map(updatingDepartmentForm, Department.class);
         departmentRepository.save(department);
+    }
+
+    @Override
+    public void deleteDepartment(int departmentID) {
+        departmentRepository.deleteById(departmentID);
+    }
+
+    @Override
+    public boolean isDepartmentExistsByID(int departmentID) {
+        return departmentRepository.existsByDepartmentID(departmentID);
+    }
+
+    @Override
+    public boolean isDepartmentExistsByName(String departmentName) {
+        return departmentRepository.existsByDepartmentName(departmentName);
     }
 }
